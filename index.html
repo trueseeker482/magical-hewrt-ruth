@@ -1,0 +1,241 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Magical Heart for Ruth 💙</title>
+
+<style>
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  padding: 35px 18px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-family: Georgia, serif;
+  color: #fff;
+  overflow-x: hidden;
+  background:
+    radial-gradient(circle at 50% 30%, #183b79, transparent 45%),
+    linear-gradient(160deg, #020617, #101b49, #250d35);
+}
+
+h1 {
+  color: #bfdbfe;
+  text-shadow: 0 0 20px #60a5fa;
+  font-size: clamp(28px, 7vw, 42px);
+}
+
+.subtitle {
+  color: #fbcfe8;
+  letter-spacing: 2px;
+  font-size: 13px;
+}
+
+.heart {
+  font-size: 105px;
+  margin: 18px;
+  cursor: pointer;
+  user-select: none;
+  animation: beat 1s infinite;
+  filter: drop-shadow(0 0 25px #60a5fa);
+  transition: transform .2s;
+}
+
+.heart:active { transform: scale(1.3); }
+
+@keyframes beat {
+  50% { transform: scale(1.15); }
+}
+
+.card {
+  width: 100%;
+  max-width: 520px;
+  padding: 25px 20px;
+  border: 1px solid #ffffff30;
+  border-radius: 25px;
+  background: #ffffff0b;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 0 35px #3b82f630;
+}
+
+h2 { color: #fbcfe8; }
+
+.message {
+  line-height: 1.9;
+  font-size: 17px;
+  color: #e0e7ff;
+}
+
+button {
+  margin: 12px 6px;
+  padding: 13px 22px;
+  border: 1px solid #ffffff35;
+  border-radius: 30px;
+  color: white;
+  font-size: 15px;
+  background: linear-gradient(135deg, #2563eb, #9333ea);
+  box-shadow: 0 0 20px #6366f140;
+  cursor: pointer;
+}
+
+button:hover { transform: translateY(-2px); }
+
+#secret {
+  display: none;
+  color: #fbcfe8;
+  font-size: 18px;
+  line-height: 1.8;
+  margin-top: 20px;
+  animation: reveal 1s ease;
+}
+
+@keyframes reveal {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+footer {
+  margin-top: 25px;
+  font-size: 12px;
+  color: #94a3b8;
+}
+
+.sparkle {
+  position: fixed;
+  top: -20px;
+  color: #93c5fd;
+  pointer-events: none;
+  z-index: -1;
+  animation: fall linear infinite;
+}
+
+@keyframes fall {
+  to { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+}
+
+.burst {
+  position: fixed;
+  pointer-events: none;
+  z-index: 10;
+  font-size: 23px;
+  animation: burst 1s ease-out forwards;
+}
+
+@keyframes burst {
+  from { transform: translate(0,0) scale(.5); opacity: 1; }
+  to { transform: translate(var(--x),var(--y)) scale(1.5); opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="subtitle">A LITTLE GIFT FROM THE HEART</div>
+
+<h1>✨ Magical Heart ✨</h1>
+
+<div class="heart" onclick="heartBurst(event)" aria-label="Tap the heart">💙</div>
+
+<div class="card">
+  <h2>For My Bestie, Ruth 🌹</h2>
+
+  <div class="message">
+    You are a beautiful part of my life.<br>
+    Thank you for being my amazing bestie.<br>
+    May your heart always be filled with love,<br>
+    happiness, laughter, and endless beautiful moments. 💖
+  </div>
+
+  <button onclick="showMessage()">Open My Heart 💌</button>
+
+  <div id="secret">
+    Ruth, you are more than just a bestie.<br>
+    You are someone truly special to my heart.<br>
+    Thank you for being YOU.<br>
+    May our friendship always shine like these stars. ❤️
+    <br><br>
+    Forever grateful for you! 💕
+  </div>
+
+  <br>
+  <button onclick="toggleMusic()" id="musicBtn">🎵 Music: Play</button>
+  <p style="font-size:12px;color:#cbd5e1">
+    Tap the heart for a little magic ✨
+  </p>
+</div>
+
+<footer>Made with 💙 especially for Ruth</footer>
+
+<audio id="music" loop>
+  <source src="https://cdn.pixabay.com/audio/2022/10/25/audio_946b9f9c2e.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+function showMessage() {
+  document.getElementById("secret").style.display = "block";
+}
+
+function toggleMusic() {
+  const music = document.getElementById("music");
+  const btn = document.getElementById("musicBtn");
+
+  if (music.paused) {
+    music.play().then(() => {
+      btn.textContent = "🎵 Music: Pause";
+    }).catch(() => {
+      btn.textContent = "Music unavailable";
+    });
+  } else {
+    music.pause();
+    btn.textContent = "🎵 Music: Play";
+  }
+}
+
+function heartBurst(event) {
+  const heart = event.currentTarget;
+  const rect = heart.getBoundingClientRect();
+  const centerX = rect.left + rect.width / 2;
+  const centerY = rect.top + rect.height / 2;
+
+  for (let i = 0; i < 18; i++) {
+    const particle = document.createElement("span");
+    particle.className = "burst";
+    particle.textContent = Math.random() > 0.5 ? "💖" : "✨";
+    particle.style.left = centerX + "px";
+    particle.style.top = centerY + "px";
+    particle.style.setProperty("--x", (Math.random() - 0.5) * 250 + "px");
+    particle.style.setProperty("--y", (Math.random() - 0.5) * 250 + "px");
+    document.body.appendChild(particle);
+    setTimeout(() => particle.remove(), 1000);
+  }
+}
+
+for (let i = 0; i < 25; i++) {
+  const sparkle = document.createElement("div");
+  sparkle.className = "sparkle";
+  sparkle.textContent = Math.random() > 0.5 ? "✦" : "♡";
+  sparkle.style.left = Math.random() * 100 + "vw";
+  sparkle.style.animationDuration = (5 + Math.random() * 8) + "s";
+  sparkle.style.animationDelay = Math.random() * 8 + "s";
+  sparkle.style.fontSize = (10 + Math.random() * 14) + "px";
+  document.body.appendChild(sparkle);
+}
+</script>
+
+</body>
+</html>
+
